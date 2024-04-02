@@ -4,7 +4,9 @@ package domain;
 import common.CategoriaException;
 import common.Comprobacion;
 import dao.Palabras;
+import lombok.Getter;
 
+@Getter
 public class Palabra implements Comparable<Palabra>{
     private int id;
     private int level;

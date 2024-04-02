@@ -1,6 +1,7 @@
 package ui;
 
 import common.Constantes;
+import domain.Juego;
 import net.datafaker.providers.entertainment.SouthPark;
 import service.GestionPalabras;
 import service.IGestionPalabras;
@@ -14,7 +15,7 @@ public class GestionArranque {
 
     private final IGestionPalabras servicio;
     private static final String pass = "2223";
-
+    Juego juego = new Juego();
     public GestionArranque(){
         servicio = new GestionPalabras();
     }
@@ -45,7 +46,7 @@ public class GestionArranque {
                 System.out.println(servicio.eliminarPalabra(2));
                 break;
             case 5:
-                System.out.println(servicio.);
+                juego.jugar();
         }
     }
 
