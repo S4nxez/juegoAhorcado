@@ -91,8 +91,8 @@ public class GestionPalabras implements IGestionPalabras {
     }
 
     @Override
-    public boolean cargarFichero() throws IOException {
-        return false;
+    public List<Palabra> cargarFichero() throws IOException {
+        return daoPalabras.getPalabras(true);
     }
 
     @Override
@@ -119,4 +119,9 @@ public class GestionPalabras implements IGestionPalabras {
     public boolean eliminarPalabra(int id) {
         return daoPalabras.eliminarPalabra(id);
     }
+
+    public void setLista(List<Palabra> lista) {
+        daoPalabras.setPalabras(lista);
+    }
+
 }

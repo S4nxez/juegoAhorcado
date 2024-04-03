@@ -1,5 +1,8 @@
 package domain;
 
 public class Jugador {
-    //opcional nombre,
+    private String nombre;
+    public Jugador(String nombre) {
+        this.nombre = nombre;
+    }
 }

@@ -1,10 +1,12 @@
 package domain;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
 import common.CategoriaException;
 import common.Constantes;
 import org.yaml.snakeyaml.scanner.ScannerException;
+import service.GestionPalabras;
 
 public class Juego {
     //pensar en los atributos que definen el estado del juego en ese instante para que que si lo paran se pueda recuperar
@@ -70,6 +72,31 @@ public class Juego {
             }else {
                 System.out.print(sol[i]);
             }
+        }
+    }
+
+    public void start(String jugNom) {
+        GestionPalabras gp = new GestionPalabras();
+        try {
+            gp.setLista(gp.cargarFichero());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        String palabra;
+        int out = 0;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Introduce tu nombre");
+        Jugador jug1 = new Jugador(jugNom);
+        while (out != 2) {
+            Juego jue = Juego.Introduccion(gp, sc, jug1);
+            String[] intento = new String[jue.getaAdivinar().getIncognita().length()];
+            do {
+                palabra = Juego.jugando(sc, jue, intento);
+                if (palabra == null) break;
+            } while (jue.getIntentos() != 7 && !jue.getaAdivinar().getIncognita().equalsIgnoreCase(palabra));
+            System.out.println("Si quieres seguir jugando escribe 1, quieres parar escribe 2");
+            out = sc.nextInt();
+            sc.nextLine();
         }
     }
 }

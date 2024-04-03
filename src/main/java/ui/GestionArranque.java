@@ -15,11 +15,39 @@ public class GestionArranque {
 
     private final IGestionPalabras servicio;
     private static final String pass = "2223";
-    Juego juego = new Juego();
+
     public GestionArranque(){
         servicio = new GestionPalabras();
     }
 
+    public void juegoArranque() {
+        Scanner sc = new Scanner(System.in);
+        int num=0;
+        do {
+            try {
+                System.out.println("Si quieres jugar pulsa 1, si eres administrador 2");
+                num = sc.nextInt();
+                sc.nextLine();
+                switch (num) {
+                    case 1:
+                        Juego ju = new Juego();
+                        System.out.println("Introduce tu nombre");
+                        ju.start(sc.nextLine());
+                        break;
+                    case 2:
+                        //introducirContrasenya(sc);
+                        mostrarMenuArranque();
+                        break;
+                    default:
+                        System.out.println("Has introducido una opción que no existe");
+                }
+            } catch (Exception e) {
+                sc.nextLine();
+                System.out.println("Introduce un número");
+            }
+        }
+        while (num!=1 && num!=2);
+    }
     public static int mostrarMenu(){
         Scanner lector = new Scanner(System.in);
         System.out.println(Constantes.MENU+"\n"+Constantes.OPCION1+"\n"+Constantes.OPCION2+"\n"+Constantes.OPCION3+"\n"+Constantes.OPCION4);
@@ -45,8 +73,6 @@ public class GestionArranque {
             case 4:
                 System.out.println(servicio.eliminarPalabra(2));
                 break;
-            case 5:
-                juego.jugar();
         }
     }
 

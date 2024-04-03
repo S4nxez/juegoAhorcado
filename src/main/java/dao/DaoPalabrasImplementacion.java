@@ -62,6 +62,11 @@ public class DaoPalabrasImplementacion implements DaoPalabras {
     }
 
     @Override
+    public void setPalabras(List<Palabra> lista) {
+        this.lista.setListaPalabras(lista);
+    }
+
+    @Override
     public boolean modificarCategoria(int id, String categoria) {
         return false;
     }

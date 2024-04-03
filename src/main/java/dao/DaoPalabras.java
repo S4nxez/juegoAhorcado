@@ -16,4 +16,5 @@ public interface DaoPalabras {
     public boolean modificarPalabra(int id, String incognita);
     public void eliminarPalabra(Palabra Palabra) ;
     public boolean eliminarPalabra(int id) ;
-    }
+    void setPalabras(List<Palabra> lista);
+}
