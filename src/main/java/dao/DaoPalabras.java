@@ -17,4 +17,5 @@ public interface DaoPalabras {
     public void eliminarPalabra(Palabra Palabra) ;
     public boolean eliminarPalabra(int id) ;
     void setPalabras(List<Palabra> lista);
+    List<Palabra> leerFicheroBinario();
 }

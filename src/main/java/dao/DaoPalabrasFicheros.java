@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class DaoPalabrasFicheros {
+public class DaoPalabrasFicheros{
     public static final String FICHERO = "Fichero";
     public static final String FICHEROB = "FicheroBinario";
 

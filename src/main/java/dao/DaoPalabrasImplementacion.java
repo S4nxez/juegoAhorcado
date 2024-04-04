@@ -67,6 +67,11 @@ public class DaoPalabrasImplementacion implements DaoPalabras {
     }
 
     @Override
+    public List<Palabra> leerFicheroBinario() {
+        return DaoPalabrasFicheros.leerFicheroBinario();
+    }
+
+    @Override
     public boolean modificarCategoria(int id, String categoria) {
         return false;
     }

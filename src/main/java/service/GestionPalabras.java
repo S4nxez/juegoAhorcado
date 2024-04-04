@@ -4,6 +4,7 @@ import common.CategoriaException;
 import dao.DaoPalabras;
 import dao.DaoPalabrasFicheros;
 import dao.DaoPalabrasImplementacion;
+import domain.Juego;
 import domain.Palabra;
 
 import java.io.FileNotFoundException;
@@ -111,8 +112,8 @@ public class GestionPalabras implements IGestionPalabras {
     }
 
     @Override
-    public boolean cargarFicheroBinario() {
-        return false;
+    public Juego cargarFicheroBinario() {
+        return daoPalabras.leerFicheroBinario();
     }
 
     @Override

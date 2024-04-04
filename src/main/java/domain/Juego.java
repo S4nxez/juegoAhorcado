@@ -3,27 +3,20 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import common.CategoriaException;
 import common.Constantes;
-import org.yaml.snakeyaml.scanner.ScannerException;
+import lombok.Getter;
 import service.GestionPalabras;
 
+@Getter
 public class Juego {
     //pensar en los atributos que definen el estado del juego en ese instante para que que si lo paran se pueda recuperar
     private Palabra aAdivinar; //o el String directamente
     private Jugador jugador;
     private int intentos;
-    private int dificultad; //opcional, aquí o por elemento.
-
-    public Juego() {
-        try {
-            aAdivinar = new Palabra(1, "hola", "saludo");
-        } catch (CategoriaException e) {
-            throw new RuntimeException(e);
-        }
-        jugador = new Jugador();
-        intentos = 5;
-        dificultad = 1;
+    public Juego(Palabra aAdivinar, Jugador jugador) {
+        this.aAdivinar = aAdivinar;
+        this.jugador = jugador;
+        this.intentos = 0;
     }
     public void jugar() {
         Scanner sc = new Scanner(System.in);
@@ -75,28 +68,5 @@ public class Juego {
         }
     }
 
-    public void start(String jugNom) {
-        GestionPalabras gp = new GestionPalabras();
-        try {
-            gp.setLista(gp.cargarFichero());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        String palabra;
-        int out = 0;
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Introduce tu nombre");
-        Jugador jug1 = new Jugador(jugNom);
-        while (out != 2) {
-            Juego jue = Juego.Introduccion(gp, sc, jug1);
-            String[] intento = new String[jue.getaAdivinar().getIncognita().length()];
-            do {
-                palabra = Juego.jugando(sc, jue, intento);
-                if (palabra == null) break;
-            } while (jue.getIntentos() != 7 && !jue.getaAdivinar().getIncognita().equalsIgnoreCase(palabra));
-            System.out.println("Si quieres seguir jugando escribe 1, quieres parar escribe 2");
-            out = sc.nextInt();
-            sc.nextLine();
-        }
-    }
+
 }

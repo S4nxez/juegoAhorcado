@@ -1,6 +1,7 @@
 package service;
 
 import common.CategoriaException;
+import domain.Juego;
 import domain.Palabra;
 
 import java.io.IOException;
@@ -31,10 +32,10 @@ public interface IGestionPalabras {
     public List<Palabra> getListaPalabrasCategoria();
     public void eliminarPalabra(Palabra Palabra);
     public void crearFicheros()throws IOException;
-    public boolean cargarFichero() throws IOException;
+    public List<Palabra> cargarFichero() throws IOException;
     public boolean escribirFichero();
     public boolean escribirFicheroBinario();
-    public boolean cargarFicheroBinario();
+    public Juego cargarFicheroBinario();
 
     public boolean eliminarPalabra(int id);
 }
