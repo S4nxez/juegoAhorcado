@@ -116,7 +116,7 @@ public class GestionPalabras implements IGestionPalabras {
 
     @Override
     public List<Palabra> consultaNivelDificultad(int dificultad, String categoria) {
-        return daoPalabras.getPalabrasNivel(dificultad);
+        return daoPalabras.getPalabrasNivelCategoria(dificultad, categoria);
     }
 
     public void setLista(List<Palabra> lista) {

@@ -28,28 +28,23 @@ public class GestionArranque {
         Scanner sc = new Scanner(System.in);
         int num=0;
         do {
-            try {
-                System.out.println("Si quieres jugar pulsa 1, si eres administrador 2");
-                num = sc.nextInt();
-                sc.nextLine();
-                switch (num) {
-                    case 1:
-                        System.out.println("Introduce tu nombre");
-                        String nombre = sc.nextLine();
-                        Jugador jug = new Jugador(nombre);
-                        Juego ju = new Juego(servicio.getListaPalabras().get((int)(Math.random()*10)), jug); // aqui hay que solucionar el tema de la palabra que le meto ahi a machete
-                        start(nombre , introduccion(sc, jug));
-                        break;
-                    case 2:
-                        //introducirContrasenya(sc);
-                        mostrarMenuArranque();
-                        break;
-                    default:
-                        System.out.println("Has introducido una opción que no existe");
-                }
-            } catch (Exception e) {
-                sc.nextLine();
-                System.out.println("Introduce un número");
+            System.out.println("Si quieres jugar pulsa 1, si eres administrador 2");
+            num = sc.nextInt();
+            sc.nextLine();
+            switch (num) {
+                case 1:
+                    System.out.println("Introduce tu nombre");
+                    String nombre = sc.nextLine();
+                    Jugador jug = new Jugador(nombre);
+                    Juego ju = new Juego(servicio.getListaPalabras().get((int)(Math.random()*10)), jug);
+                    start(nombre , introduccion(sc, jug));
+                    break;
+                case 2:
+                    //introducirContrasenya(sc);
+                    mostrarMenuArranque();
+                    break;
+                default:
+                    System.out.println("Has introducido una opción que no existe");
             }
         }
         while (num!=1 && num!=2);
@@ -59,22 +54,14 @@ public class GestionArranque {
         Jugador         jug1 = new Jugador(jugNom);
         Scanner         sc = new Scanner(System.in);
         String          palabra = null;
-        int             out = 0;
 
         try {
             gp.setLista(gp.cargarFichero());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        while (out != 2) {
-            String[] intento = new String[jue.getAAdivinar().getIncognita().length()];
-            while (jue.getIntentos() != 7 && !jue.getAAdivinar().getIncognita().equalsIgnoreCase(palabra)) {
-                palabra = jue.jugar(sc.nextLine());
-                if (palabra == null) break;
-            }
-            System.out.println("Si quieres seguir jugando escribe 1, quieres parar escribe 2");
-            out = sc.nextInt();
-            sc.nextLine();
+        while (jue.getIntentos() != 7 || !jue.getAAdivinar().getIncognita().equalsIgnoreCase(palabra)) {
+            palabra = jue.jugar(sc.nextLine());
         }
     }
 
@@ -106,7 +93,6 @@ public class GestionArranque {
                 int numero = (int) (Math.random() * servicio.consultaNivelDificultad(dificultad, categoria).size());
                 System.out.println(numero);
                 juego = new Juego(servicio.consultaNivelDificultad(dificultad, categoria).get(numero), jug1);
-
             } else {
                 juego = servicio.cargarFicheroBinario();
                 if(juego==null){

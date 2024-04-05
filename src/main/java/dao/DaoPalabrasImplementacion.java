@@ -36,7 +36,13 @@ public class DaoPalabrasImplementacion implements DaoPalabras {
 
     @Override
     public List<Palabra> getPalabrasNivelCategoria(int nivel, String categoria) {
-        return null;
+        List<Palabra> lista2 = new ArrayList<>();
+        for (int i = 0; i < lista.getSize(); i++) {
+            if (this.lista.get(i).getLevel() == nivel && this.lista.get(i).getCategoria().equalsIgnoreCase(categoria)) {
+                lista2.add(this.lista.get(i));
+            }
+        }
+        return lista2;
     }
 
     @Override

@@ -27,6 +27,9 @@ public class Palabras {
             for (int i = 0; i < 10; i++) {
                 palabras.add(new Palabra(autonumerico++, 2, faker.pokemon().name(), Categoria.pokemon.name()));
             }
+            for (int i = 0; i < 10; i++) {
+                palabras.add(new Palabra(autonumerico++, 1, faker.chiquito().expressions(), Categoria.chiquito.name()));
+            }
         } catch (CategoriaException e) {
             System.out.println(e.getMessage());
         }

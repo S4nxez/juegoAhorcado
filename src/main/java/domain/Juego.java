@@ -13,27 +13,32 @@ public class Juego {
     private Palabra aAdivinar; //o el String directamente
     private Jugador jugador;
     private int intentos;
+    char[]  sol;
     public Juego(Palabra aAdivinar, Jugador jugador) {
         this.aAdivinar = aAdivinar;
+        System.out.println(aAdivinar.getIncognita());
         this.jugador = jugador;
         this.intentos = 0;
+        this.sol = new char[aAdivinar.getIncognita().length()];
+        Arrays.fill(this.sol, '\0');
     }
     public String jugar(String input) {
         int     len = aAdivinar.getIncognita().length() - 1;
-        char[]  sol = new char[len];
-
-        Arrays.fill(sol, '\0');
-        imprimirSol(sol, len);
+        System.out.println(input.length());
+        imprimirSol(this.sol, len);
         if (input.length() == 1) {
             for (int i = 0; i < len; i++) {
                 if (aAdivinar.getIncognita().charAt(i) == input.charAt(0)) {
-                    sol[i] = input.charAt(0);
+                    this.sol[i] = input.charAt(0);
                 }
                 i++;
             }
-            comprobar(sol,len);
         } else if (input.length() == len + 1) {
-            input.equalsIgnoreCase(aAdivinar.getIncognita());
+            if (input.equalsIgnoreCase(aAdivinar.getIncognita()))
+            {
+                System.out.println("ganador");
+                sol = aAdivinar.getIncognita().toCharArray();
+            }
         } else {
             System.out.println(Constantes.ERROR);
         }
@@ -55,6 +60,7 @@ public class Juego {
                 System.out.print(sol[i]);
             }
         }
+        System.out.println();
     }
 
 
