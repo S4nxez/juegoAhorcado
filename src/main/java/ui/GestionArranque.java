@@ -34,10 +34,10 @@ public class GestionArranque {
                 sc.nextLine();
                 switch (num) {
                     case 1:
+                        System.out.println("Introduce tu nombre");
                         String nombre = sc.nextLine();
                         Jugador jug = new Jugador(nombre);
-                        System.out.println("Introduce tu nombre");
-                        Juego ju = new Juego(new Palabra("Prueba"), jug); // aqui hay que solucionar el tema de la palabra que le meto ahi a machete
+                        Juego ju = new Juego(servicio.getListaPalabras().get((int)(Math.random()*10)), jug); // aqui hay que solucionar el tema de la palabra que le meto ahi a machete
                         start(nombre , introduccion(sc, jug));
                         break;
                     case 2:
@@ -67,7 +67,6 @@ public class GestionArranque {
             throw new RuntimeException(e);
         }
         while (out != 2) {
-            jue = introduccion(sc, jug1);
             String[] intento = new String[jue.getAAdivinar().getIncognita().length()];
             while (jue.getIntentos() != 7 && !jue.getAAdivinar().getIncognita().equalsIgnoreCase(palabra)) {
                 palabra = jue.jugar(sc.nextLine());

@@ -6,7 +6,7 @@ public class Main {
         //En el main sólo hay que llamar a los métodos de la UI que darán paso al luego o administrar diccionario.
 
         GestionArranque gD= new GestionArranque();
-        gD.opciones();
+        gD.juegoArranque();
 
 
         //Este código no va aquí, pero es para que veáis cómo funciona ciertos aspectos de la aplicación a tener en cuenta

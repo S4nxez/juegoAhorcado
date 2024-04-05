@@ -43,13 +43,10 @@ public class GestionPalabras implements IGestionPalabras {
     public boolean insertarPalabra(int id, int level, String incognita, String categoria) throws CategoriaException {
         return false;
     }
-
-
     @Override
     public List<Palabra> listar(String categoria) {
         return null;
     }
-
     @Override
     public List<Palabra> listar(int nivel, String categoria) {
         return null;
@@ -69,7 +66,6 @@ public class GestionPalabras implements IGestionPalabras {
     public boolean modificarCategoria(int id, String categoria) throws CategoriaException {
         return false;
     }
-
     @Override
     public boolean modificarPalabra(int id, String incognita) {
         return false;
@@ -84,13 +80,10 @@ public class GestionPalabras implements IGestionPalabras {
     public void eliminarPalabra(Palabra Palabra) {
 
     }
-
-
     @Override
     public void crearFicheros() throws IOException {
 
     }
-
     @Override
     public List<Palabra> cargarFichero() throws IOException {
         return daoPalabras.getPalabras(true);

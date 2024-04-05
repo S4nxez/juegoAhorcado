@@ -1,6 +1,7 @@
 package dao;
 
 import common.CategoriaException;
+import domain.Juego;
 import domain.Palabra;
 
 import java.io.*;
@@ -131,14 +132,16 @@ public class DaoPalabrasFicheros{
      *
      * @return
      */
-    public static List<Palabra> leerFicheroBinario() {
-        List<Palabra> auxiliar = null;
-        try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(FICHEROB))) {
-            auxiliar = (List<Palabra>) is.readObject();
+    public static Juego leerFicheroBinario() {
+        Juego auxiliar = null;
+        File file = new File(FICHEROB);
+        if (file.exists()) {
+            try (ObjectInputStream is = new ObjectInputStream(new FileInputStream(file))) {
+                auxiliar = (Juego) is.readObject();
 
-        } catch (IOException | ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DaoPalabrasFicheros.class.getName()).log(java.util.logging.Level.SEVERE, ex.getMessage(), ex);
-
+            } catch (IOException | ClassNotFoundException ex) {
+                java.util.logging.Logger.getLogger(DaoPalabrasFicheros.class.getName()).log(java.util.logging.Level.SEVERE, ex.getMessage(), ex);
+            }
         }
         return auxiliar;
     }

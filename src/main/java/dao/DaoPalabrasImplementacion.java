@@ -1,5 +1,6 @@
 package dao;
 
+import domain.Juego;
 import domain.Palabra;
 
 import java.util.ArrayList;
@@ -73,7 +74,7 @@ public class DaoPalabrasImplementacion implements DaoPalabras {
     }
 
     @Override
-    public List<Palabra> leerFicheroBinario() {
+    public Juego leerFicheroBinario() {
         return DaoPalabrasFicheros.leerFicheroBinario();
     }
 

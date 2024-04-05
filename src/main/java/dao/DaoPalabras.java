@@ -1,5 +1,6 @@
 package dao;
 
+import domain.Juego;
 import domain.Palabra;
 
 import java.util.List;
@@ -17,5 +18,5 @@ public interface DaoPalabras {
     public void eliminarPalabra(Palabra Palabra) ;
     public boolean eliminarPalabra(int id) ;
     void setPalabras(List<Palabra> lista);
-    List<Palabra> leerFicheroBinario();
+    Juego leerFicheroBinario();
 }
