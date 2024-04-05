@@ -2,6 +2,7 @@ package dao;
 
 import domain.Palabra;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -39,7 +40,12 @@ public class DaoPalabrasImplementacion implements DaoPalabras {
 
     @Override
     public List<Palabra> getPalabrasNivel(int nivel) {
-        return null;
+        List<Palabra> lista2 = new ArrayList<>();
+        for (int i = 0; i < lista.getSize(); i++) {
+            if (this.lista.get(i).getLevel() == nivel)
+                lista2.add(this.lista.get(i));
+        }
+        return lista2;
     }
 
     @Override

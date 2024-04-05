@@ -121,6 +121,11 @@ public class GestionPalabras implements IGestionPalabras {
         return daoPalabras.eliminarPalabra(id);
     }
 
+    @Override
+    public List<Palabra> consultaNivelDificultad(int dificultad, String categoria) {
+        return daoPalabras.getPalabrasNivel(dificultad);
+    }
+
     public void setLista(List<Palabra> lista) {
         daoPalabras.setPalabras(lista);
     }

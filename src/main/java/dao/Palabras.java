@@ -8,6 +8,7 @@ import net.datafaker.Faker;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Handler;
 
 public class Palabras {
     private final ArrayList<Palabra> palabras;
@@ -44,6 +45,10 @@ public class Palabras {
         return palabras;
     }
 
+    public int getSize() {
+        return palabras.size();
+    }
+
     public static int getAutonumerico() {
         return autonumerico;
     }
@@ -65,6 +70,10 @@ public class Palabras {
             }
         }
         return salir;
+    }
+
+    public Palabra get(int i) {
+        return palabras.get(i);
     }
 }
 

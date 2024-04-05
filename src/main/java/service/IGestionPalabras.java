@@ -28,7 +28,6 @@ public interface IGestionPalabras {
     public List<Palabra> listarPalabras(boolean ascendente);
     public boolean modificarCategoria(int id, String categoria) throws CategoriaException;
     public boolean modificarPalabra(int id, String incognita);
-
     public List<Palabra> getListaPalabrasCategoria();
     public void eliminarPalabra(Palabra Palabra);
     public void crearFicheros()throws IOException;
@@ -36,6 +35,6 @@ public interface IGestionPalabras {
     public boolean escribirFichero();
     public boolean escribirFicheroBinario();
     public Juego cargarFicheroBinario();
-
     public boolean eliminarPalabra(int id);
+    List<Palabra> consultaNivelDificultad(int dificultad, String categoria);
 }

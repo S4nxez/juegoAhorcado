@@ -18,38 +18,27 @@ public class Juego {
         this.jugador = jugador;
         this.intentos = 0;
     }
-    public void jugar() {
-        Scanner sc = new Scanner(System.in);
-        String  input;
+    public String jugar(String input) {
         int     len = aAdivinar.getIncognita().length() - 1;
         char[]  sol = new char[len];
-        boolean gana = false;
-        int     vidas = 5;
-        boolean flag = false;
 
         Arrays.fill(sol, '\0');
-        while (!gana && vidas != 0) {
-            imprimirSol(sol, len);
-            input = sc.nextLine();
-            if (input.length() == 1) {
-                for (int i = 0; i < len; i++) {
-                    if (aAdivinar.getIncognita().charAt(i) == input.charAt(0)) {
-                        sol[i] = input.charAt(0);
-                        flag = true;
-                    }
-                    i++;
+        imprimirSol(sol, len);
+        if (input.length() == 1) {
+            for (int i = 0; i < len; i++) {
+                if (aAdivinar.getIncognita().charAt(i) == input.charAt(0)) {
+                    sol[i] = input.charAt(0);
                 }
-                if (!flag)
-                    vidas--;
-                flag = false;
-                gana = comprobar(sol,len);
-            } else if (input.length() == len + 1) {
-                gana = input.equalsIgnoreCase(aAdivinar.getIncognita());
-                if (!gana) vidas --;
-            } else {
-                System.out.println(Constantes.ERROR);
+                i++;
             }
+            comprobar(sol,len);
+        } else if (input.length() == len + 1) {
+            input.equalsIgnoreCase(aAdivinar.getIncognita());
+        } else {
+            System.out.println(Constantes.ERROR);
         }
+        intentos++;
+        return sol.toString();
     }
     private boolean comprobar(char[] sol, int len) {
         boolean ret = true;

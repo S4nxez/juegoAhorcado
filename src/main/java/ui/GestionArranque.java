@@ -18,11 +18,10 @@ import java.util.Scanner;
  */
 public class GestionArranque {
 
-    private static final IGestionPalabras servicio;
+    private static IGestionPalabras servicio;
     private static final String pass = "2223";
 
-    public GestionArranque(){
-        servicio = new GestionPalabras();
+    public GestionArranque(){ servicio = new GestionPalabras();
     }
 
     public void juegoArranque() {
@@ -71,7 +70,7 @@ public class GestionArranque {
             jue = introduccion(sc, jug1);
             String[] intento = new String[jue.getAAdivinar().getIncognita().length()];
             while (jue.getIntentos() != 7 && !jue.getAAdivinar().getIncognita().equalsIgnoreCase(palabra)) {
-                palabra = jue.jugando(sc, jue, intento);
+                palabra = jue.jugar(sc.nextLine());
                 if (palabra == null) break;
             }
             System.out.println("Si quieres seguir jugando escribe 1, quieres parar escribe 2");
@@ -80,7 +79,7 @@ public class GestionArranque {
         }
     }
 
-    public static Juego introduccion(Scanner sc, Jugador jug1) throws CategoriaException {
+    public static Juego introduccion(Scanner sc, Jugador jug1){
         boolean categoriaExiste;
         String  categoria;
         Juego   juego = null;
