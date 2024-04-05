@@ -12,6 +12,7 @@ import service.IGestionPalabras;
 
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.SplittableRandom;
 
 /**
  * Clase con métodos de administración para consola
@@ -36,7 +37,6 @@ public class GestionArranque {
                     System.out.println("Introduce tu nombre");
                     String nombre = sc.nextLine();
                     Jugador jug = new Jugador(nombre);
-                    Juego ju = new Juego(servicio.getListaPalabras().get((int)(Math.random()*10)), jug);
                     start(nombre , introduccion(sc, jug));
                     break;
                 case 2:
@@ -60,8 +60,13 @@ public class GestionArranque {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        while (jue.getIntentos() != 7 || !jue.getAAdivinar().getIncognita().equalsIgnoreCase(palabra)) {
+        while (jue.getIntentos() != 7 && !jue.getAAdivinar().getIncognita().equalsIgnoreCase(palabra)) {
             palabra = jue.jugar(sc.nextLine());
+        }
+        if (jue.getIntentos() == 7) {
+            System.out.println("Has perdido, la palabra era: " + jue.getAAdivinar().getIncognita());
+        } else {
+            System.out.println("Has ganado");
         }
     }
 

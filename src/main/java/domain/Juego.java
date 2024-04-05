@@ -21,39 +21,30 @@ public class Juego {
         this.intentos = 0;
         this.sol = new char[aAdivinar.getIncognita().length()];
         Arrays.fill(this.sol, '\0');
+        imprimirSol(this.sol, aAdivinar.getIncognita().length() - 1);
     }
     public String jugar(String input) {
         int     len = aAdivinar.getIncognita().length() - 1;
-        System.out.println(input.length());
-        imprimirSol(this.sol, len);
+
         if (input.length() == 1) {
             for (int i = 0; i < len; i++) {
-                if (aAdivinar.getIncognita().charAt(i) == input.charAt(0)) {
+                if (aAdivinar.getIncognita().charAt(i) == input.charAt(0))
                     this.sol[i] = input.charAt(0);
-                }
-                i++;
             }
         } else if (input.length() == len + 1) {
-            if (input.equalsIgnoreCase(aAdivinar.getIncognita()))
-            {
-                System.out.println("ganador");
-                sol = aAdivinar.getIncognita().toCharArray();
+            if (input.equalsIgnoreCase(aAdivinar.getIncognita())){
+                this.sol = aAdivinar.getIncognita().toCharArray();
+                this.intentos = 0;
             }
         } else {
             System.out.println(Constantes.ERROR);
         }
         intentos++;
-        return sol.toString();
-    }
-    private boolean comprobar(char[] sol, int len) {
-        boolean ret = true;
-
-        for (int i = 0; i < len; i++)
-            if (sol[i] == '\0') ret = false;
-        return ret;
+        imprimirSol(this.sol, len);
+        return String.valueOf(sol);
     }
     private void imprimirSol(char[] sol, int len) {
-        for (int i = 0; i < len; i++) {
+        for (int i = 0; i <= len; i++) {
             if (sol[i]  == '\0') {
                 System.out.print("_");
             }else {
@@ -62,6 +53,4 @@ public class Juego {
         }
         System.out.println();
     }
-
-
 }
