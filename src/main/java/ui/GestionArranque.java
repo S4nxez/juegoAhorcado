@@ -22,36 +22,32 @@ public class GestionArranque {
     private static IGestionPalabras servicio;
     private static final String pass = "2223";
 
-    public GestionArranque(){ servicio = new GestionPalabras();
+    public GestionArranque(){
+        servicio = new GestionPalabras();
     }
 
     public void juegoArranque() {
         Scanner sc = new Scanner(System.in);
         int num=0;
-        do {
-            System.out.println("Si quieres jugar pulsa 1, si eres administrador 2");
-            num = sc.nextInt();
-            sc.nextLine();
+        while (num!=1 && num!=2){
+            System.out.println(Constantes.JUGAR_ADMINISTRADOR);
+            num = leerNumeros();
             switch (num) {
                 case 1:
-                    System.out.println("Introduce tu nombre");
+                    System.out.println(Constantes.NOMBRE_JUGADOR);
                     String nombre = sc.nextLine();
                     Jugador jug = new Jugador(nombre);
-                    start(nombre , introduccion(sc, jug));
+                    start(jug , introduccion(sc, jug));
                     break;
                 case 2:
                     //introducirContrasenya(sc);
                     mostrarMenuArranque();
                     break;
-                default:
-                    System.out.println("Has introducido una opción que no existe");
             }
         }
-        while (num!=1 && num!=2);
     }
-    public void start(String jugNom ,Juego jue) {
+    public void start(Jugador jug ,Juego jue) {
         GestionPalabras gp = new GestionPalabras();
-        Jugador         jug1 = new Jugador(jugNom);
         Scanner         sc = new Scanner(System.in);
         String          palabra = null;
 
@@ -64,9 +60,9 @@ public class GestionArranque {
             palabra = jue.jugar(sc.nextLine());
         }
         if (jue.getIntentos() == 7) {
-            System.out.println("Has perdido, la palabra era: " + jue.getAAdivinar().getIncognita());
+            System.out.println(Constantes.PERDIDO + jue.getAAdivinar().getIncognita());
         } else {
-            System.out.println("Has ganado");
+            System.out.println(Constantes.GANADO);
         }
     }
 
@@ -76,9 +72,8 @@ public class GestionArranque {
         Juego   juego = null;
 
         while (juego == null) {
-            System.out.println("Para jugar una partida antigua escribe 1, sino escribe 2");
-            int num = sc.nextInt();
-            sc.nextLine();
+            System.out.println(Constantes.PARTIDA_ANTIGUA);
+            int num = leerNumeros();
 
             if (num == 2) {
                 do {
@@ -89,10 +84,10 @@ public class GestionArranque {
                         Comprobacion.categoriaOk(categoria);
                         categoriaExiste = true;
                     } catch (CategoriaException e){
-                        System.out.println("Categoria no valida");
+                        System.out.println(e.getMessage());
                     }
                 } while (!categoriaExiste);
-                System.out.println("Escribe la dificultad, van del 1 al 3, cuanto más nivel las palabras son más largas.");
+                System.out.println(Constantes.DIFICULTAD);
                 int dificultad = sc.nextInt();
                 sc.nextLine();
                 int numero = (int) (Math.random() * servicio.consultaNivelDificultad(dificultad, categoria).size());
@@ -101,7 +96,7 @@ public class GestionArranque {
             } else {
                 juego = servicio.cargarFicheroBinario();
                 if(juego==null){
-                    System.out.println("No tienes partida guardada, por favor presione 2");
+                    System.out.println(Constantes.NO_PARTIDA_GUARDADA);
                 }
             }
         }
@@ -110,7 +105,7 @@ public class GestionArranque {
     public static int mostrarMenu(){
         Scanner lector = new Scanner(System.in);
         System.out.println(Constantes.MENU+"\n"+Constantes.OPCION1+"\n"+Constantes.OPCION2+"\n"+Constantes.OPCION3+"\n"+Constantes.OPCION4);
-        int num = lector.nextInt(); //tratar la excepción para evitar que se pare el programa si no introduce un número
+        int num = leerNumeros();
         return num;
     }
     public void opciones(int opcion){
@@ -119,26 +114,28 @@ public class GestionArranque {
                 System.out.println(servicio.getListaPalabras());
         }
     }
-    public void opciones(){
-        int opcion = mostrarMenu();
-        switch(opcion){
-            case 0:
-                System.out.println(servicio.escribirFichero());
-                break;
-            case 1:
-                System.out.println(servicio.getListaPalabras());
-                break;
-            case 4:
-                System.out.println(servicio.eliminarPalabra(2));
-                break;
-        }
-    }
 
     public void mostrarMenuArranque(){
         Scanner lector = new Scanner(System.in);
         System.out.println(Constantes.MENU+"\n"+Constantes.OPCION1+"\n"+Constantes.OPCION2+"\n"+Constantes.OPCION3+"\n"+Constantes.OPCION4);
         int num = lector.nextInt(); //tratar la excepción para evitar que se pare el programa si no introduce un número
         opciones(num);
+    }
+
+    private static int leerNumeros() {
+        Scanner sc = new Scanner(System.in);
+        int num = 0;
+        boolean flag = false;
+        while (!flag) {
+            try {
+                num = sc.nextInt();
+                flag = true;
+            } catch (Exception e) {
+                System.out.println(Constantes.ERROR_INPT_MISMATCH);
+            }
+            sc.nextLine();
+        }
+        return num;
     }
 
 }

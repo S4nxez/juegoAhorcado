@@ -24,7 +24,7 @@ public class Palabra implements Comparable<Palabra>{
     public Palabra(int id, int level, String incognita, String categoria) throws CategoriaException {
         this.id = id;
         this.level = level;
-        this.incognita = incognita;
+        this.incognita = incognita.toLowerCase();
         Comprobacion.categoriaOk(categoria);
         this.categoria = categoria;
     }
@@ -32,7 +32,7 @@ public class Palabra implements Comparable<Palabra>{
         this.id = Palabras.getAutonumerico();
         Palabras.setAutonumerico(Palabras.getAutonumerico()+1);
         this.level = level;
-        this.incognita = incognita;
+        this.incognita = incognita.toLowerCase();
         Comprobacion.categoriaOk(categoria);
         this.categoria = categoria;
     }
