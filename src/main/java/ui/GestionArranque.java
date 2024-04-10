@@ -1,5 +1,6 @@
 package ui;
 
+import common.Categoria;
 import common.CategoriaException;
 import common.Comprobacion;
 import common.Constantes;
@@ -19,7 +20,7 @@ import java.util.SplittableRandom;
  */
 public class GestionArranque {
 
-    private static IGestionPalabras servicio;
+    private final IGestionPalabras servicio;
     private static final String pass = "2223";
 
     public GestionArranque(){
@@ -37,7 +38,7 @@ public class GestionArranque {
                     System.out.println(Constantes.NOMBRE_JUGADOR);
                     String nombre = sc.nextLine();
                     Jugador jug = new Jugador(nombre);
-                    start(jug , introduccion(sc, jug));
+                    start(jug , introduccion(jug));
                     break;
                 case 2:
                     //introducirContrasenya(sc);
@@ -66,8 +67,8 @@ public class GestionArranque {
         }
     }
 
-    public static Juego introduccion(Scanner sc, Jugador jug1){
-        boolean categoriaExiste;
+    public Juego introduccion(Jugador jug1){
+        Scanner sc = new Scanner(System.in);
         String  categoria;
         Juego   juego = null;
 
@@ -76,22 +77,11 @@ public class GestionArranque {
             int num = leerNumeros();
 
             if (num == 2) {
-                do {
-                    System.out.println("Escibe la categoría deseada: Formula1, Simpsons");
-                    categoria = sc.nextLine();
-                    categoriaExiste = false;
-                    try {
-                        Comprobacion.categoriaOk(categoria);
-                        categoriaExiste = true;
-                    } catch (CategoriaException e){
-                        System.out.println(e.getMessage());
-                    }
-                } while (!categoriaExiste);
+                categoria = pedirCategoria();
                 System.out.println(Constantes.DIFICULTAD);
                 int dificultad = sc.nextInt();
                 sc.nextLine();
                 int numero = (int) (Math.random() * servicio.consultaNivelDificultad(dificultad, categoria).size());
-                System.out.println(numero);
                 juego = new Juego(servicio.consultaNivelDificultad(dificultad, categoria).get(numero), jug1);
             } else {
                 juego = servicio.cargarFicheroBinario();
@@ -102,30 +92,51 @@ public class GestionArranque {
         }
         return juego;
     }
-    public static int mostrarMenu(){
-        Scanner lector = new Scanner(System.in);
+
+    public void mostrarMenuArranque(){
         System.out.println(Constantes.MENU+"\n"+Constantes.OPCION1+"\n"+Constantes.OPCION2+"\n"+Constantes.OPCION3+"\n"+Constantes.OPCION4);
         int num = leerNumeros();
-        return num;
-    }
-    public void opciones(int opcion){
-        switch(opcion){
+        switch(num){
             case 1:
                 System.out.println(servicio.getListaPalabras());
+                break;
+            case 2:
+                String categoria = pedirCategoria();;
+                System.out.println(Constantes.DIFICULTAD);
+                int dificultad = leerNumeros();
+                System.out.println(Constantes.PEDIR_PALABRA);
+                String palabra = new Scanner(System.in).nextLine();
+                servicio.insertarPalabra(new Palabra(dificultad, categoria, palabra));
         }
     }
 
-    public void mostrarMenuArranque(){
-        Scanner lector = new Scanner(System.in);
-        System.out.println(Constantes.MENU+"\n"+Constantes.OPCION1+"\n"+Constantes.OPCION2+"\n"+Constantes.OPCION3+"\n"+Constantes.OPCION4);
-        int num = lector.nextInt(); //tratar la excepción para evitar que se pare el programa si no introduce un número
-        opciones(num);
+    private String pedirCategoria() {
+        Scanner sc = new Scanner(System.in);
+        String categoria;
+        boolean categoriaExiste = false;
+
+        do {
+            System.out.println(Constantes.SELECCIONA_CATEGORIA);
+            for (Categoria cat: Categoria.values()) {
+                System.out.print(cat + " | ");
+            }
+            System.out.println();
+            categoria = sc.nextLine();
+            try {
+                Comprobacion.categoriaOk(categoria);
+                categoriaExiste = true;
+            } catch (CategoriaException e){
+                System.out.println(e.getMessage());
+            }
+        } while (!categoriaExiste);
+        return categoria;
     }
 
-    private static int leerNumeros() {
+    private int leerNumeros() {
         Scanner sc = new Scanner(System.in);
         int num = 0;
         boolean flag = false;
+
         while (!flag) {
             try {
                 num = sc.nextInt();

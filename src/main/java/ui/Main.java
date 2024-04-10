@@ -1,13 +1,14 @@
 package ui;
 
 
+import dao.Palabras;
+
 public class Main {
     public static void main(String[] args)  {
         //En el main sólo hay que llamar a los métodos de la UI que darán paso al luego o administrar diccionario.
 
         GestionArranque gD= new GestionArranque();
         gD.juegoArranque();
-
 
         //Este código no va aquí, pero es para que veáis cómo funciona ciertos aspectos de la aplicación a tener en cuenta
         /*

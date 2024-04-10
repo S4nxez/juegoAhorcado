@@ -36,13 +36,12 @@ public class DaoPalabrasImplementacion implements DaoPalabras {
 
     @Override
     public List<Palabra> getPalabrasNivelCategoria(int nivel, String categoria) {
-        List<Palabra> lista2 = new ArrayList<>();
+        List<Palabra> ret = new ArrayList<>();
         for (int i = 0; i < lista.getSize(); i++) {
-            if (this.lista.get(i).getLevel() == nivel && this.lista.get(i).getCategoria().equalsIgnoreCase(categoria)) {
-                lista2.add(this.lista.get(i));
-            }
+            if (this.lista.get(i).getLevel() == nivel && this.lista.get(i).getCategoria().equalsIgnoreCase(categoria))
+                ret.add(this.lista.get(i));
         }
-        return lista2;
+        return ret;
     }
 
     @Override
@@ -71,7 +70,7 @@ public class DaoPalabrasImplementacion implements DaoPalabras {
 
     @Override
     public boolean eliminarPalabra(int id) {
-        return lista.eliminaPalabra(3);
+        return lista.eliminaPalabra(id);
     }
 
     @Override

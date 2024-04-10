@@ -18,4 +18,6 @@ public class Constantes {
     public static final String ERROR_CATEGORIA = "La categoría no existe";
     public static final String DIFICULTAD = "Escribe la dificultad, van del 1 al 3, cuanto más nivel las palabras son más largas.";
     public static final String NO_PARTIDA_GUARDADA = "No tienes partida guardada, por favor presione 2";
+    public static final String SELECCIONA_CATEGORIA = "Escoge una categoría de las siguientes: ";
+    public static final String PEDIR_PALABRA = "Introduce la palabra que quieres añadir";
 }
