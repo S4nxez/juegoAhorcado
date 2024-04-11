@@ -9,8 +9,7 @@ import service.GestionPalabras;
 
 @Getter
 public class Juego {
-    //pensar en los atributos que definen el estado del juego en ese instante para que que si lo paran se pueda recuperar
-    private Palabra aAdivinar; //o el String directamente
+    private Palabra aAdivinar;
     private Jugador jugador;
     private int intentos;
     char[]  sol;

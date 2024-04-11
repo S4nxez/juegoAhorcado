@@ -57,15 +57,15 @@ public class Palabra implements Comparable<Palabra>{
         return categoria;
     }
 
-    public void setCategoria(String categoria) throws CategoriaException {
+    public boolean setCategoria(String categoria) throws CategoriaException {
         Comprobacion.categoriaOk(categoria);
         this.categoria = categoria;
+        return true;
     }
 
     @Override
     public int compareTo(Palabra o) {
-        //return Integer.compare(this.id,o.id);
-        return incognita.compareTo(o.incognita);
+        return Integer.compare(this.id,o.id);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package dao;
 
+import common.CategoriaException;
 import domain.Juego;
 import domain.Palabra;
 
@@ -21,7 +22,7 @@ public class DaoPalabrasImplementacion implements DaoPalabras {
 
     @Override
     public boolean insertarPalabra(Palabra Palabra) {
-        return false;
+        return this.lista.getListaPalabras().add(Palabra);
     }
 
     @Override
@@ -84,8 +85,8 @@ public class DaoPalabrasImplementacion implements DaoPalabras {
     }
 
     @Override
-    public boolean modificarCategoria(int id, String categoria) {
-        return false;
+    public boolean modificarCategoria(int id, String categoria) throws CategoriaException {
+        return this.lista.get(id).setCategoria(categoria);
     }
 
     @Override

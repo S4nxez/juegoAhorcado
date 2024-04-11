@@ -19,10 +19,8 @@ import java.util.SplittableRandom;
  * Clase con métodos de administración para consola
  */
 public class GestionArranque {
-
     private final IGestionPalabras servicio;
     private static final String pass = "2223";
-
     public GestionArranque(){
         servicio = new GestionPalabras();
     }
@@ -30,9 +28,10 @@ public class GestionArranque {
     public void juegoArranque() {
         Scanner sc = new Scanner(System.in);
         int num=0;
+
         while (num!=1 && num!=2){
             System.out.println(Constantes.JUGAR_ADMINISTRADOR);
-            num = leerNumeros();
+            num = leerNumeros(1,2);
             switch (num) {
                 case 1:
                     System.out.println(Constantes.NOMBRE_JUGADOR);
@@ -41,12 +40,19 @@ public class GestionArranque {
                     start(jug , introduccion(jug));
                     break;
                 case 2:
-                    //introducirContrasenya(sc);
-                    mostrarMenuArranque();
+                    System.out.print(Constantes.CONTRASENYA);
+                    if (introducirContrasenya(sc.nextLine())) mostrarMenuArranque();
                     break;
             }
         }
     }
+
+    private boolean introducirContrasenya(String pwd) {
+        if (pwd.equals(pass))
+            return true;
+        return false;
+    }
+
     public void start(Jugador jug ,Juego jue) {
         GestionPalabras gp = new GestionPalabras();
         Scanner         sc = new Scanner(System.in);
@@ -60,30 +66,27 @@ public class GestionArranque {
         while (jue.getIntentos() != 7 && !jue.getAAdivinar().getIncognita().equalsIgnoreCase(palabra)) {
             palabra = jue.jugar(sc.nextLine());
         }
-        if (jue.getIntentos() == 7) {
+        if (jue.getIntentos() == 7)
             System.out.println(Constantes.PERDIDO + jue.getAAdivinar().getIncognita());
-        } else {
+         else
             System.out.println(Constantes.GANADO);
-        }
     }
 
     public Juego introduccion(Jugador jug1){
-        Scanner sc = new Scanner(System.in);
         String  categoria;
         Juego   juego = null;
 
         while (juego == null) {
             System.out.println(Constantes.PARTIDA_ANTIGUA);
-            int num = leerNumeros();
+            int num = leerNumeros(1,2);
 
             if (num == 2) {
                 categoria = pedirCategoria();
                 System.out.println(Constantes.DIFICULTAD);
-                int dificultad = sc.nextInt();
-                sc.nextLine();
+                int dificultad = leerNumeros(1,3);
                 int numero = (int) (Math.random() * servicio.consultaNivelDificultad(dificultad, categoria).size());
                 juego = new Juego(servicio.consultaNivelDificultad(dificultad, categoria).get(numero), jug1);
-            } else {
+            } else if (num == 1) {
                 juego = servicio.cargarFicheroBinario();
                 if(juego==null){
                     System.out.println(Constantes.NO_PARTIDA_GUARDADA);
@@ -94,26 +97,50 @@ public class GestionArranque {
     }
 
     public void mostrarMenuArranque(){
-        System.out.println(Constantes.MENU+"\n"+Constantes.OPCION1+"\n"+Constantes.OPCION2+"\n"+Constantes.OPCION3+"\n"+Constantes.OPCION4);
-        int num = leerNumeros();
-        switch(num){
-            case 1:
-                System.out.println(servicio.getListaPalabras());
-                break;
-            case 2:
-                String categoria = pedirCategoria();;
-                System.out.println(Constantes.DIFICULTAD);
-                int dificultad = leerNumeros();
-                System.out.println(Constantes.PEDIR_PALABRA);
-                String palabra = new Scanner(System.in).nextLine();
-                servicio.insertarPalabra(new Palabra(dificultad, categoria, palabra));
+        boolean salir = false;
+        int     num;
+
+        while(!salir) {
+            System.out.println(Constantes.MENU+"\n"+Constantes.OPCION1+"\n"+Constantes.OPCION2+"\n"+Constantes.OPCION3+"\n"+Constantes.OPCION4+"\n"+Constantes.SALIR);
+            num = leerNumeros(0,0);
+            switch(num){
+                case 1:
+                    System.out.println(servicio.getListaPalabras());
+                    break;
+                case 2: //revisa aqui para que el nivel se ponga automaticamente en relación a la longitud de la incognita
+                    String categoria = pedirCategoria();;
+                    System.out.println(Constantes.DIFICULTAD);
+                    int dificultad = leerNumeros(1,3);
+                    System.out.println(Constantes.PEDIR_PALABRA);
+                    String palabra = new Scanner(System.in).nextLine();
+                    servicio.insertarPalabra(new Palabra(dificultad, palabra, categoria));
+                    break;
+                case 3:
+                    System.out.println("Introduce el id de la palabra que quieres modificar");
+                    int id = leerNumeros(0,0);
+                    System.out.println("Introduce la nueva categoria");
+                    String cat = pedirCategoria();
+                    try {
+                        servicio.modificarCategoria(id, cat);
+                    } catch (CategoriaException e) {
+                        System.out.println(e.getMessage());
+                    }
+                    break;
+                case 4:
+                    System.out.println("Introduce el id de la palabra que quieres eliminar");
+                    int id2 = leerNumeros(0,0);
+                    servicio.eliminarPalabra(id2);
+                    break;
+                default:
+                    salir = true;
+            }
         }
     }
 
     private String pedirCategoria() {
         Scanner sc = new Scanner(System.in);
-        String categoria;
         boolean categoriaExiste = false;
+        String  categoria;
 
         do {
             System.out.println(Constantes.SELECCIONA_CATEGORIA);
@@ -132,7 +159,7 @@ public class GestionArranque {
         return categoria;
     }
 
-    private int leerNumeros() {
+    private int leerNumeros(int min, int max) {
         Scanner sc = new Scanner(System.in);
         int num = 0;
         boolean flag = false;
@@ -140,7 +167,11 @@ public class GestionArranque {
         while (!flag) {
             try {
                 num = sc.nextInt();
-                flag = true;
+                if ((num >= min && num <= max) || (min == max))
+                    flag = true;
+                else {
+                    System.out.println(Constantes.ERROR_RANGO + min + " , " + max);
+                }
             } catch (Exception e) {
                 System.out.println(Constantes.ERROR_INPT_MISMATCH);
             }
@@ -148,5 +179,4 @@ public class GestionArranque {
         }
         return num;
     }
-
 }

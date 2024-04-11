@@ -66,9 +66,6 @@ public class Palabras {
     }
 
     public boolean eliminaPalabra(int i) {
-        //i posicion
-        //palabras.remove(i);
-        //i -> id
         boolean salir = false;
         for (int j = 0; j < palabras.size() && !salir; j++) {
             if (palabras.get(j).getId()==i) {

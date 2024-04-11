@@ -22,12 +22,6 @@ public class DaoPalabrasFicheros{
             fichero2.createNewFile();
     }
 
-    public static void crearFicheros(String nombreFichero) throws IOException {
-        File fichero1 = new File(nombreFichero);
-        if (!fichero1.exists())
-            fichero1.createNewFile();
-    }
-
     public static List<Palabra> leerFichero() throws IOException {
         return leerFichero(DaoPalabrasFicheros.FICHERO);
     }
@@ -47,14 +41,11 @@ public class DaoPalabrasFicheros{
                     System.out.println(e.getMessage());
                 }
             }
-            ;
         } catch (FileNotFoundException ex) {
             java.util.logging.Logger.getLogger(DaoPalabrasFicheros.class.getName()).log(java.util.logging.Level.SEVERE, ex.getMessage(), ex);
-
         }
 
         return auxiliar;
-
     }
 
     public static List<Palabra> leerFicheroBufferedReader(String fichero) throws IOException {

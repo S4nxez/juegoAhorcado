@@ -1,5 +1,6 @@
 package dao;
 
+import common.CategoriaException;
 import domain.Juego;
 import domain.Palabra;
 
@@ -13,7 +14,7 @@ public interface DaoPalabras {
     public List<Palabra> getPalabrasNivelCategoria(int nivel, String categoria);
     public List<Palabra> getPalabrasNivel (int nivel);
     public List<Palabra> getPalabras(boolean ascendente);
-    public boolean modificarCategoria(int id, String categoria);
+    public boolean modificarCategoria(int id, String categoria) throws CategoriaException;
     public boolean modificarPalabra(int id, String incognita);
     public void eliminarPalabra(Palabra Palabra) ;
     public boolean eliminarPalabra(int id) ;

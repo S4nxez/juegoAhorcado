@@ -35,8 +35,8 @@ public class GestionPalabras implements IGestionPalabras {
     }
 
     @Override
-    public boolean insertarPalabra(Palabra Palabra) {
-        return false;
+    public boolean insertarPalabra(Palabra palabra) {
+        return daoPalabras.insertarPalabra(palabra);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class GestionPalabras implements IGestionPalabras {
 
     @Override
     public boolean modificarCategoria(int id, String categoria) throws CategoriaException {
-        return false;
+        return daoPalabras.modificarCategoria(id, categoria);
     }
     @Override
     public boolean modificarPalabra(int id, String incognita) {

@@ -20,4 +20,7 @@ public class Constantes {
     public static final String NO_PARTIDA_GUARDADA = "No tienes partida guardada, por favor presione 2";
     public static final String SELECCIONA_CATEGORIA = "Escoge una categoría de las siguientes: ";
     public static final String PEDIR_PALABRA = "Introduce la palabra que quieres añadir";
+    public static final String SALIR = "Pulse cualquier otro número para salir";
+    public static final String CONTRASENYA = "Introduce la contraseña: ";
+    public static final String ERROR_RANGO = "Error, introduce un número en el siguiente rango: ";
 }
