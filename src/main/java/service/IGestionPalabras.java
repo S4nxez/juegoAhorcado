@@ -37,4 +37,5 @@ public interface IGestionPalabras {
     public Juego cargarFicheroBinario();
     public boolean eliminarPalabra(int id);
     List<Palabra> consultaNivelDificultad(int dificultad, String categoria);
+    void setLista(List<Palabra> lista);
 }

@@ -70,12 +70,7 @@ public class Palabra implements Comparable<Palabra>{
 
     @Override
     public String toString() {
-        return "Palabra{" +
-                "id=" + id +
-                ", level=" + level +
-                ", incognita='" + incognita + '\'' +
-                ", categoria='" + categoria + '\'' +
-                '}'+"\n";
+        return id + ";" + level + ";" + incognita + ";" + categoria + "\n";
     }
     public String toStringFichero() {
         return id + ";" + level + ";"+ incognita+ ";"+ categoria;

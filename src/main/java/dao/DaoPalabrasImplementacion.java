@@ -4,6 +4,7 @@ import common.CategoriaException;
 import domain.Juego;
 import domain.Palabra;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -82,6 +83,11 @@ public class DaoPalabrasImplementacion implements DaoPalabras {
     @Override
     public Juego leerFicheroBinario() {
         return DaoPalabrasFicheros.leerFicheroBinario();
+    }
+
+    @Override
+    public List<Palabra> cargarFichero() throws IOException {
+        return DaoPalabrasFicheros.leerFichero();
     }
 
     @Override

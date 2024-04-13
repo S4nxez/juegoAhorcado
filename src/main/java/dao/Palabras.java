@@ -15,29 +15,8 @@ public class Palabras {
     private static int autonumerico;
 
     public Palabras() {
-        //Aquí leer fichero cuando ya esté el fichero creado con las palabras del DataFaker
         this.palabras = new ArrayList<>();
-
-        try {
-            palabras.add(new Palabra(autonumerico++, 1, "El mejor verano de mi vida", Categoria.comedia.name()));
-            palabras.add(new Palabra(autonumerico++, 1, "Misión Imposible IV fallout", Categoria.accion.name()));
-            Faker faker = new Faker();
-            for (int i = 0; i < 10; i++) {
-                palabras.add(new Palabra(autonumerico++, 2, faker.pokemon().name(), Categoria.pokemon.name()));
-            }
-            for (int i = 0; i < 30; i++) {
-                String chiquito = faker.chiquito().terms();
-                if (chiquito.length() <= 6)
-                    palabras.add(new Palabra(autonumerico++, 1, chiquito, Categoria.chiquito.name()));
-                else if (chiquito.length() == 7)
-                    palabras.add(new Palabra(autonumerico++, 2, chiquito, Categoria.chiquito.name()));
-                else
-                    palabras.add(new Palabra(autonumerico++, 3, chiquito, Categoria.chiquito.name()));
-            }
-        } catch (CategoriaException e) {
-            System.out.println(e.getMessage());
-        }
-
+        //leerFichero();
     }
 
     public Palabras(ArrayList<Palabra> Palabras) {

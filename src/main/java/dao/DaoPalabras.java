@@ -4,6 +4,7 @@ import common.CategoriaException;
 import domain.Juego;
 import domain.Palabra;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface DaoPalabras {
@@ -20,4 +21,5 @@ public interface DaoPalabras {
     public boolean eliminarPalabra(int id) ;
     void setPalabras(List<Palabra> lista);
     Juego leerFicheroBinario();
+    List<Palabra> cargarFichero() throws IOException;
 }

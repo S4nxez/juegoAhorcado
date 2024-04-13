@@ -1,8 +1,10 @@
 package dao;
 
+import common.Categoria;
 import common.CategoriaException;
 import domain.Juego;
 import domain.Palabra;
+import net.datafaker.Faker;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -16,10 +18,42 @@ public class DaoPalabrasFicheros{
     public static void crearFicheros() throws IOException {
         File fichero1 = new File(FICHERO);
         File fichero2 = new File(FICHEROB);
-        if (!fichero1.exists())
+        if (!fichero1.exists()) {
             fichero1.createNewFile();
+            PrintWriter pw = new PrintWriter(fichero1);
+            for(Palabra pa :  crearDiccionario()){
+                pw.print(pa);
+            }
+            pw.close();
+        }
         if (!fichero2.exists())
             fichero2.createNewFile();
+    }
+
+    private static List<Palabra> crearDiccionario() {
+        List<Palabra> ret = new ArrayList<>();
+        int autonumerico = 0;
+
+        try {
+            ret.add(new Palabra(autonumerico++, 1, "El mejor verano de mi vida", Categoria.comedia.name()));
+            ret.add(new Palabra(autonumerico++, 1, "Misión Imposible IV fallout", Categoria.accion.name()));
+            Faker faker = new Faker();
+            for (int i = 0; i < 10; i++) {
+                ret.add(new Palabra(autonumerico++, 2, faker.pokemon().name(), Categoria.pokemon.name()));
+            }
+            for (int i = 0; i < 30; i++) {
+                String chiquito = faker.chiquito().terms();
+                if (chiquito.length() <= 6)
+                    ret.add(new Palabra(autonumerico++, 1, chiquito, Categoria.chiquito.name()));
+                else if (chiquito.length() == 7)
+                    ret.add(new Palabra(autonumerico++, 2, chiquito, Categoria.chiquito.name()));
+                else
+                    ret.add(new Palabra(autonumerico++, 3, chiquito, Categoria.chiquito.name()));
+            }
+        } catch (CategoriaException e) {
+            System.out.println(e.getMessage());
+        }
+        return ret;
     }
 
     public static List<Palabra> leerFichero() throws IOException {
@@ -27,25 +61,23 @@ public class DaoPalabrasFicheros{
     }
 
     public static List<Palabra> leerFichero(String fichero) throws IOException {
+        ArrayList<Palabra> ret = null;
+
         crearFicheros();
-        ArrayList<Palabra> auxiliar = null;
         try (Scanner sc = new Scanner(new File(fichero))) {
-            auxiliar = new ArrayList<>();
+            ret = new ArrayList<>();
             while (sc.hasNextLine()) {
                 String cadena = sc.nextLine();
-                String[] trozos = cadena.split(";");
                 try {
-                    //auxiliar.add(new Palabra(Integer.parseInt(trozos[0]),Integer.parseInt(trozos[1]),trozos[2],trozos[3]));
-                    auxiliar.add(new Palabra(cadena));
+                    ret.add(new Palabra(cadena));
                 } catch (CategoriaException e) {
                     System.out.println(e.getMessage());
                 }
             }
         } catch (FileNotFoundException ex) {
-            java.util.logging.Logger.getLogger(DaoPalabrasFicheros.class.getName()).log(java.util.logging.Level.SEVERE, ex.getMessage(), ex);
+            java.util.logging.Logger.getLogger(DaoPalabrasFicheros.class.getName()).log(java.util.logging.Level.SEVERE, ex.getMessage(), ex); //no entiendo
         }
-
-        return auxiliar;
+        return ret;
     }
 
     public static List<Palabra> leerFicheroBufferedReader(String fichero) throws IOException {

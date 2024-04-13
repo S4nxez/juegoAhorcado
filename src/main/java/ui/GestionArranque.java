@@ -7,13 +7,11 @@ import common.Constantes;
 import domain.Juego;
 import domain.Jugador;
 import domain.Palabra;
-import net.datafaker.providers.entertainment.SouthPark;
 import service.GestionPalabras;
 import service.IGestionPalabras;
 
 import java.io.IOException;
 import java.util.Scanner;
-import java.util.SplittableRandom;
 
 /**
  * Clase con métodos de administración para consola
@@ -29,6 +27,11 @@ public class GestionArranque {
         Scanner sc = new Scanner(System.in);
         int num=0;
 
+        try {
+            servicio.setLista(servicio.cargarFichero());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         while (num!=1 && num!=2){
             System.out.println(Constantes.JUGAR_ADMINISTRADOR);
             num = leerNumeros(1,2);
@@ -48,21 +51,13 @@ public class GestionArranque {
     }
 
     private boolean introducirContrasenya(String pwd) {
-        if (pwd.equals(pass))
-            return true;
-        return false;
+        return pwd.equals(pass);
     }
 
     public void start(Jugador jug ,Juego jue) {
-        GestionPalabras gp = new GestionPalabras();
         Scanner         sc = new Scanner(System.in);
         String          palabra = null;
 
-        try {
-            gp.setLista(gp.cargarFichero());
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
         while (jue.getIntentos() != 7 && !jue.getAAdivinar().getIncognita().equalsIgnoreCase(palabra)) {
             palabra = jue.jugar(sc.nextLine());
         }
@@ -107,8 +102,8 @@ public class GestionArranque {
                 case 1:
                     System.out.println(servicio.getListaPalabras());
                     break;
-                case 2: //revisa aqui para que el nivel se ponga automaticamente en relación a la longitud de la incognita
-                    String categoria = pedirCategoria();;
+                case 2: //revisa aquí para que el nivel se ponga automáticamente en relación con la longitud de la incognita
+                    String categoria = pedirCategoria();
                     System.out.println(Constantes.DIFICULTAD);
                     int dificultad = leerNumeros(1,3);
                     System.out.println(Constantes.PEDIR_PALABRA);

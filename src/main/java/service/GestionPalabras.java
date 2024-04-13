@@ -86,7 +86,7 @@ public class GestionPalabras implements IGestionPalabras {
     }
     @Override
     public List<Palabra> cargarFichero() throws IOException {
-        return daoPalabras.getPalabras(true);
+        return daoPalabras.cargarFichero();
     }
 
     @Override
@@ -118,7 +118,7 @@ public class GestionPalabras implements IGestionPalabras {
     public List<Palabra> consultaNivelDificultad(int dificultad, String categoria) {
         return daoPalabras.getPalabrasNivelCategoria(dificultad, categoria);
     }
-
+    @Override
     public void setLista(List<Palabra> lista) {
         daoPalabras.setPalabras(lista);
     }
