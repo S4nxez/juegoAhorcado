@@ -42,6 +42,7 @@ public class Palabras {
     public void setListaPalabras(List<Palabra> Palabras) {
         this.palabras.clear();
         this.palabras.addAll(Palabras);
+        setAutonumerico(Palabras.size());
     }
 
     public boolean eliminaPalabra(int i) {

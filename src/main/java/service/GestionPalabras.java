@@ -92,7 +92,7 @@ public class GestionPalabras implements IGestionPalabras {
     @Override
     public boolean escribirFichero() {
         try {
-            return DaoPalabrasFicheros.escribirFichero(daoPalabras.getPalabras(true),"Diccionario");
+            return DaoPalabrasFicheros.escribirFichero(daoPalabras.getPalabras(true),"Fichero");
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
@@ -118,6 +118,7 @@ public class GestionPalabras implements IGestionPalabras {
     public List<Palabra> consultaNivelDificultad(int dificultad, String categoria) {
         return daoPalabras.getPalabrasNivelCategoria(dificultad, categoria);
     }
+
     @Override
     public void setLista(List<Palabra> lista) {
         daoPalabras.setPalabras(lista);

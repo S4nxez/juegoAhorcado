@@ -23,4 +23,5 @@ public class Constantes {
     public static final String SALIR = "Pulse cualquier otro número para salir";
     public static final String CONTRASENYA = "Introduce la contraseña: ";
     public static final String ERROR_RANGO = "Error, introduce un número en el siguiente rango: ";
+    public static final String INTRODUCE_ID = "Introduce el id de la palabra: ";
 }

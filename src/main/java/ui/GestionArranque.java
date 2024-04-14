@@ -111,9 +111,8 @@ public class GestionArranque {
                     servicio.insertarPalabra(new Palabra(dificultad, palabra, categoria));
                     break;
                 case 3:
-                    System.out.println("Introduce el id de la palabra que quieres modificar");
+                    System.out.print(Constantes.INTRODUCE_ID);
                     int id = leerNumeros(0,0);
-                    System.out.println("Introduce la nueva categoria");
                     String cat = pedirCategoria();
                     try {
                         servicio.modificarCategoria(id, cat);
@@ -122,11 +121,12 @@ public class GestionArranque {
                     }
                     break;
                 case 4:
-                    System.out.println("Introduce el id de la palabra que quieres eliminar");
+                    System.out.println(Constantes.INTRODUCE_ID);
                     int id2 = leerNumeros(0,0);
                     servicio.eliminarPalabra(id2);
                     break;
                 default:
+                    servicio.escribirFichero();
                     salir = true;
             }
         }
