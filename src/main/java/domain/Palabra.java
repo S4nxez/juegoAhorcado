@@ -6,8 +6,10 @@ import common.Comprobacion;
 import dao.Palabras;
 import lombok.Getter;
 
+import java.io.Serializable;
+
 @Getter
-public class Palabra implements Comparable<Palabra>{
+public class Palabra implements Comparable<Palabra>, Serializable {
     private int id;
     private int level;
     private String incognita;

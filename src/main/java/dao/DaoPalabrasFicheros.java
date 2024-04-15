@@ -170,10 +170,10 @@ public class DaoPalabrasFicheros{
     }
 
 
-    public static boolean escribirFicheroBinario(List<Palabra> Palabras) {
+    public static boolean escribirFicheroBinario(Juego juego) {
         boolean escrito = false;
         try (ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(FICHEROB))) {
-            os.writeObject(Palabras);
+            os.writeObject(juego);
             escrito = true;
         } catch (IOException ex) {
             java.util.logging.Logger.getLogger(DaoPalabrasFicheros.class.getName()).log(java.util.logging.Level.SEVERE, ex.getMessage(), ex);

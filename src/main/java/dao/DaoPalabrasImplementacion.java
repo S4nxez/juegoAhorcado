@@ -4,6 +4,7 @@ import common.CategoriaException;
 import domain.Juego;
 import domain.Palabra;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -88,6 +89,16 @@ public class DaoPalabrasImplementacion implements DaoPalabras {
     @Override
     public List<Palabra> cargarFichero() throws IOException {
         return DaoPalabrasFicheros.leerFichero();
+    }
+
+    @Override
+    public boolean escribirFicheroBinario(Juego juego) {
+        return DaoPalabrasFicheros.escribirFicheroBinario(juego);
+    }
+
+    @Override
+    public boolean escribirFichero(List<Palabra> lista, String nombreFichero) throws FileNotFoundException {
+        return DaoPalabrasFicheros.escribirFichero(lista, nombreFichero);
     }
 
     @Override

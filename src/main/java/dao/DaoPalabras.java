@@ -4,6 +4,7 @@ import common.CategoriaException;
 import domain.Juego;
 import domain.Palabra;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
@@ -22,4 +23,6 @@ public interface DaoPalabras {
     void setPalabras(List<Palabra> lista);
     Juego leerFicheroBinario();
     List<Palabra> cargarFichero() throws IOException;
+    boolean escribirFicheroBinario(Juego juego);
+    boolean escribirFichero(List<Palabra> lista, String nombreFichero) throws FileNotFoundException;
 }

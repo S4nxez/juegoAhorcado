@@ -9,7 +9,9 @@ import java.util.List;
 
 public interface IGestionPalabras {
     public boolean isEmptyPalabrasList();
+
     public List<Palabra> getListaPalabras();
+
     public boolean insertarPalabra(Palabra Palabra);
 
     /**
@@ -33,7 +35,7 @@ public interface IGestionPalabras {
     public void crearFicheros()throws IOException;
     public List<Palabra> cargarFichero() throws IOException;
     public boolean escribirFichero();
-    public boolean escribirFicheroBinario();
+    public boolean escribirFicheroBinario(Juego juego);
     public Juego cargarFicheroBinario();
     public boolean eliminarPalabra(int id);
     List<Palabra> consultaNivelDificultad(int dificultad, String categoria);

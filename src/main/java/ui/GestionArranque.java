@@ -38,9 +38,10 @@ public class GestionArranque {
             switch (num) {
                 case 1:
                     System.out.println(Constantes.NOMBRE_JUGADOR);
-                    String nombre = sc.nextLine();
-                    Jugador jug = new Jugador(nombre);
-                    start(jug , introduccion(jug));
+                    Jugador jug = new Jugador(sc.nextLine());
+                    Juego jue = introduccion(jug);
+                    imprimirSol(jue.getSol(), jue.getAAdivinar().getIncognita().length());
+                    start(jug , jue);
                     break;
                 case 2:
                     System.out.print(Constantes.CONTRASENYA);
@@ -48,6 +49,7 @@ public class GestionArranque {
                     break;
             }
         }
+        servicio.escribirFichero();
     }
 
     private boolean introducirContrasenya(String pwd) {
@@ -60,13 +62,24 @@ public class GestionArranque {
 
         while (jue.getIntentos() != 7 && !jue.getAAdivinar().getIncognita().equalsIgnoreCase(palabra)) {
             palabra = jue.jugar(sc.nextLine());
+            servicio.escribirFicheroBinario(jue);
+            imprimirSol(jue.getSol(), jue.getAAdivinar().getIncognita().length());
         }
         if (jue.getIntentos() == 7)
             System.out.println(Constantes.PERDIDO + jue.getAAdivinar().getIncognita());
          else
             System.out.println(Constantes.GANADO);
     }
-
+    private void imprimirSol(char[] sol, int len) {
+        for (int i = 0; i < len; i++) {
+            if (sol[i]  == '\0') {
+                System.out.print("_");
+            }else {
+                System.out.print(sol[i]);
+            }
+        }
+        System.out.println();
+    }
     public Juego introduccion(Jugador jug1){
         String  categoria;
         Juego   juego = null;

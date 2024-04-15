@@ -92,7 +92,7 @@ public class GestionPalabras implements IGestionPalabras {
     @Override
     public boolean escribirFichero() {
         try {
-            return DaoPalabrasFicheros.escribirFichero(daoPalabras.getPalabras(true),"Fichero");
+            return daoPalabras.escribirFichero(daoPalabras.getPalabras(true),"Fichero");
         } catch (FileNotFoundException e) {
             System.out.println(e.getMessage());
         }
@@ -100,8 +100,8 @@ public class GestionPalabras implements IGestionPalabras {
     }
 
     @Override
-    public boolean escribirFicheroBinario() {
-        return false;
+    public boolean escribirFicheroBinario(Juego juego) {
+        return daoPalabras.escribirFicheroBinario(juego);
     }
 
     @Override
