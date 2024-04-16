@@ -5,7 +5,6 @@ import common.CategoriaException;
 import common.Comprobacion;
 import common.Constantes;
 import domain.Juego;
-import domain.Jugador;
 import domain.Palabra;
 import service.GestionPalabras;
 import service.IGestionPalabras;
@@ -37,11 +36,10 @@ public class GestionArranque {
             num = leerNumeros(1,2);
             switch (num) {
                 case 1:
-                    System.out.println(Constantes.NOMBRE_JUGADOR);
-                    Jugador jug = new Jugador(sc.nextLine());
-                    Juego jue = introduccion(jug);
+                    System.out.println(Constantes.GUARDADO_PARTIDA);
+                    Juego jue = introduccion();
                     imprimirSol(jue.getSol(), jue.getAAdivinar().getIncognita().length());
-                    start(jug , jue);
+                    start(jue);
                     break;
                 case 2:
                     System.out.print(Constantes.CONTRASENYA);
@@ -56,7 +54,7 @@ public class GestionArranque {
         return pwd.equals(pass);
     }
 
-    public void start(Jugador jug ,Juego jue) {
+    public void start(Juego jue) {
         Scanner         sc = new Scanner(System.in);
         String          palabra = null;
 
@@ -65,9 +63,10 @@ public class GestionArranque {
             servicio.escribirFicheroBinario(jue);
             imprimirSol(jue.getSol(), jue.getAAdivinar().getIncognita().length());
         }
+        servicio.eliminarBinario();
         if (jue.getIntentos() == 7)
             System.out.println(Constantes.PERDIDO + jue.getAAdivinar().getIncognita());
-         else
+        else
             System.out.println(Constantes.GANADO);
     }
     private void imprimirSol(char[] sol, int len) {
@@ -80,7 +79,7 @@ public class GestionArranque {
         }
         System.out.println();
     }
-    public Juego introduccion(Jugador jug1){
+    public Juego introduccion(){
         String  categoria;
         Juego   juego = null;
 
@@ -93,7 +92,7 @@ public class GestionArranque {
                 System.out.println(Constantes.DIFICULTAD);
                 int dificultad = leerNumeros(1,3);
                 int numero = (int) (Math.random() * servicio.consultaNivelDificultad(dificultad, categoria).size());
-                juego = new Juego(servicio.consultaNivelDificultad(dificultad, categoria).get(numero), jug1);
+                juego = new Juego(servicio.consultaNivelDificultad(dificultad, categoria).get(numero));
             } else if (num == 1) {
                 juego = servicio.cargarFicheroBinario();
                 if(juego==null){
@@ -107,7 +106,7 @@ public class GestionArranque {
     public void mostrarMenuArranque(){
         boolean salir = false;
         int     num;
-
+    
         while(!salir) {
             System.out.println(Constantes.MENU+"\n"+Constantes.OPCION1+"\n"+Constantes.OPCION2+"\n"+Constantes.OPCION3+"\n"+Constantes.OPCION4+"\n"+Constantes.SALIR);
             num = leerNumeros(0,0);

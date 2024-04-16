@@ -5,10 +5,13 @@ import common.CategoriaException;
 import common.Comprobacion;
 import dao.Palabras;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 @Getter
+@Setter
 public class Palabra implements Comparable<Palabra>, Serializable {
     private int id;
     private int level;
@@ -47,18 +50,6 @@ public class Palabra implements Comparable<Palabra>, Serializable {
         this.categoria = trozos[3];
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getCategoria() {
-        return categoria;
-    }
-
     public boolean setCategoria(String categoria) throws CategoriaException {
         Comprobacion.categoriaOk(categoria);
         this.categoria = categoria;
@@ -78,4 +69,16 @@ public class Palabra implements Comparable<Palabra>, Serializable {
         return id + ";" + level + ";"+ incognita+ ";"+ categoria;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Palabra palabra = (Palabra) o;
+        return Objects.equals(incognita, palabra.incognita) && Objects.equals(categoria, palabra.categoria);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(incognita, categoria);
+    }
 }

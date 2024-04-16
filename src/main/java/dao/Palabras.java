@@ -1,14 +1,10 @@
 package dao;
 
 
-import common.Categoria;
-import common.CategoriaException;
 import domain.Palabra;
-import net.datafaker.Faker;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Handler;
 
 public class Palabras {
     private final ArrayList<Palabra> palabras;
@@ -16,16 +12,12 @@ public class Palabras {
 
     public Palabras() {
         this.palabras = new ArrayList<>();
-        //leerFichero();
     }
 
     public Palabras(ArrayList<Palabra> Palabras) {
         this.palabras = Palabras;
     }
 
-    public static void setAutonumerico(int i) {
-        autonumerico = i;
-    }
 
     public List<Palabra> getListaPalabras() {
         return palabras;
@@ -38,11 +30,14 @@ public class Palabras {
     public static int getAutonumerico() {
         return autonumerico;
     }
+    public static void setAutonumerico(int auto) {
+        autonumerico = auto;
+    }
 
     public void setListaPalabras(List<Palabra> Palabras) {
         this.palabras.clear();
         this.palabras.addAll(Palabras);
-        setAutonumerico(Palabras.size());
+        autonumerico = Palabras.size();
     }
 
     public boolean eliminaPalabra(int i) {

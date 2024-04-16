@@ -8,36 +8,22 @@ import java.io.IOException;
 import java.util.List;
 
 public interface IGestionPalabras {
-    public boolean isEmptyPalabrasList();
-
-    public List<Palabra> getListaPalabras();
-
-    public boolean insertarPalabra(Palabra Palabra);
-
+    List<Palabra> getListaPalabras();
+    boolean insertarPalabra(Palabra Palabra);
     /**
      *
      * @param id
-     * @param level
-     * @param incognita
      * @param categoria si la categoria no es válida se lanzará una excepción y no será insertado el elememto
      * @return
      * @throws CategoriaException
      */
-    public boolean insertarPalabra(int id, int level, String incognita, String categoria) throws CategoriaException;
-    public List<Palabra> listar(String categoria);
-    public List<Palabra> listar(int nivel, String categoria);
-    public List<Palabra> listar (int nivel);
-    public List<Palabra> listarPalabras(boolean ascendente);
-    public boolean modificarCategoria(int id, String categoria) throws CategoriaException;
-    public boolean modificarPalabra(int id, String incognita);
-    public List<Palabra> getListaPalabrasCategoria();
-    public void eliminarPalabra(Palabra Palabra);
-    public void crearFicheros()throws IOException;
-    public List<Palabra> cargarFichero() throws IOException;
-    public boolean escribirFichero();
-    public boolean escribirFicheroBinario(Juego juego);
-    public Juego cargarFicheroBinario();
-    public boolean eliminarPalabra(int id);
+    boolean modificarCategoria(int id, String categoria) throws CategoriaException;
+    List<Palabra> cargarFichero() throws IOException;
+    boolean escribirFichero();
+    boolean escribirFicheroBinario(Juego juego);
+    Juego cargarFicheroBinario();
+    boolean eliminarPalabra(int id);
     List<Palabra> consultaNivelDificultad(int dificultad, String categoria);
     void setLista(List<Palabra> lista);
+    void eliminarBinario();
 }

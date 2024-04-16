@@ -8,20 +8,18 @@ import lombok.Getter;
 @Getter
 public class Juego implements Serializable {
     private final Palabra aAdivinar;
-    private final Jugador jugador;
     private int intentos;
     char[]  sol;
 
-    public Juego(Palabra aAdivinar, Jugador jugador) {
+    public Juego(Palabra aAdivinar) {
         this.aAdivinar = aAdivinar;
-        this.jugador = jugador;
         this.intentos = 0;
         this.sol = new char[aAdivinar.getIncognita().length()];
         Arrays.fill(this.sol, '\0');
     }
     public String jugar(String input) {
-        int     len = aAdivinar.getIncognita().length();
         boolean flag = true;
+        int     len = aAdivinar.getIncognita().length();
 
         if (input.length() == 1) {
             for (int i = 0; i < len; i++) {

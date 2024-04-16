@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class DaoPalabrasImplementacion implements DaoPalabras {
+
     protected final Palabras lista;
 
     public DaoPalabrasImplementacion() {
@@ -18,23 +19,8 @@ public class DaoPalabrasImplementacion implements DaoPalabras {
     }
 
     @Override
-    public boolean isEmptyPalabrasList() {
-        return false;
-    }
-
-    @Override
     public boolean insertarPalabra(Palabra Palabra) {
         return this.lista.getListaPalabras().add(Palabra);
-    }
-
-    @Override
-    public boolean insertarPalabra(int id, int level, String incognita, String categoria) {
-        return false;
-    }
-
-    @Override
-    public List<Palabra> getPalabrasCategoria(String categoria) {
-        return null;
     }
 
     @Override
@@ -48,27 +34,12 @@ public class DaoPalabrasImplementacion implements DaoPalabras {
     }
 
     @Override
-    public List<Palabra> getPalabrasNivel(int nivel) {
-        List<Palabra> lista2 = new ArrayList<>();
-        for (int i = 0; i < lista.getSize(); i++) {
-            if (this.lista.get(i).getLevel() == nivel)
-                lista2.add(this.lista.get(i));
-        }
-        return lista2;
-    }
-
-    @Override
     public List<Palabra> getPalabras(boolean ascendente) {
         List<Palabra> aux = lista.getListaPalabras();
         Collections.sort(aux);
         if (!ascendente)
             Collections.reverse(aux);
         return aux;
-    }
-
-    @Override
-    public void eliminarPalabra(Palabra Palabra) {
-
     }
 
     @Override
@@ -102,12 +73,13 @@ public class DaoPalabrasImplementacion implements DaoPalabras {
     }
 
     @Override
+    public void eliminarBinario() {
+        DaoPalabrasFicheros.eliminarBinario();
+    }
+
+    @Override
     public boolean modificarCategoria(int id, String categoria) throws CategoriaException {
         return this.lista.get(id).setCategoria(categoria);
     }
 
-    @Override
-    public boolean modificarPalabra(int id, String incognita) {
-        return false;
-    }
 }
